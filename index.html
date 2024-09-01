@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario con PicoCSS</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body >
+    <video class="video-background" autoplay muted loop>
+        <source src="videoFondo.mp4" type="video/mp4">
+        Tu navegador no soporta el elemento <code>video</code>.
+    </video>
+    <!-- <div class="container"> -->
+        <!-- <div class="container-form">
+            <form action="">
+
+                upload files
+
+            </form>
+        </div> -->
+        
+        <div class="container">
+            <button id="btn" class="btn"> Open Album</button>
+            <!-- img insert-->
+            <div id="container-album" class="container-album">
+                <div class="album">
+                    <img src="https://thumbs.dreamstime.com/z/pareja-rom%C3%A1ntica-con-amor-y-abrazo-en-la-playa-193072729.jpg">
+                    <p>En la playa</p>
+                </div>
+                <div class="album">
+                    <img src="https://i.pinimg.com/originals/88/8e/e1/888ee11b42bd4c056332f82084dec0a5.jpg">
+                    <p>En la playa</p>
+                </div>
+                <div class="album">
+                    <img src="https://us.123rf.com/450wm/peopleimages12/peopleimages122212/peopleimages12221220561/195905464-pareja-silueta-de-puesta-de-sol-y-playa-con-manos-de-coraz%C3%B3n-uni%C3%B3n-y-amor-de-vacaciones-para-luna.jpg?ver=6">
+                    <p>En la playa</p>
+                </div>
+                <div class="album">
+                    <img src="https://cdn.pixabay.com/photo/2021/03/08/09/43/sunset-6078624_1280.jpg">
+                    <p>En la playa</p>
+                </div>
+                <div class="album">
+                    <img src="https://img.freepik.com/vector-gratis/pareja-osos-lindos-san-valentin_23-2148816807.jpg">
+                    <p>En la playa</p>
+                </div>
+                <div class="album">
+                    <img src="https://i.pinimg.com/736x/cf/c1/6a/cfc16a241eb0631f3ebb013d0a397fc6.jpg">
+                    <p>En la playa</p>
+                </div>
+                <div class="album">
+                    <img src="https://i.pinimg.com/564x/f3/ab/5a/f3ab5ad2074138a31f33d5365f4e1c07.jpg">
+                    <p>En la playa</p>
+                </div>
+                <div class="album">
+                    <img src="https://i.pinimg.com/736x/22/30/85/223085aa886811bfdfb1889cef54ffe3.jpg">
+                    <p>En la playa</p>
+                </div>
+                <div class="album">
+                    <img src="https://st2.depositphotos.com/2069237/5288/i/950/depositphotos_52886845-stock-photo-couple-walking-on-honeymoon-vacation.jpg">
+                    <p>En la playa</p>
+                </div>
+                <div class="album">
+                    <img src="https://i.pinimg.com/550x/f7/7d/db/f77ddbd979be47623be97c1fe79f8f24.jpg">
+                    <p>En la playa</p>
+                </div>
+                <div class="album">
+                    <img src="https://img.freepik.com/foto-gratis/pareja-sentada-playa-mirando-al-otro_23-2148134541.jpg">
+                    <p>En la playa</p>
+                </div>
+                
+            </div> 
+             <!-- Modal -->
+            <div id="myModal" class="modal" style="display: none;">
+                <span class="close">&times;</span>
+                <div class="modal-content">
+                    <img id="img01" alt="Alta Definición">
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <script>
+
+        //function to move the album
+        function makeElementsDraggable(className) {
+            const draggableElements = document.querySelectorAll(`.${className}`);
+        
+            draggableElements.forEach(draggableElement => {
+                let isDragging = false;
+                let offsetX, offsetY;
+        
+                draggableElement.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    offsetX = e.clientX - draggableElement.offsetLeft;
+                    offsetY = e.clientY - draggableElement.offsetTop;
+                    draggableElement.style.cursor = 'grabbing';
+                });
+        
+                document.addEventListener('mousemove', (e) => {
+                    if (isDragging) {
+                        draggableElement.style.left = `${e.clientX - offsetX}px`;
+                        draggableElement.style.top = `${e.clientY - offsetY}px`;
+                    }
+                });
+        
+                document.addEventListener('mouseup', () => {
+                    isDragging = false;
+                    draggableElement.style.cursor = 'grab';
+                });
+            });
+        }
+        makeElementsDraggable('album');
+        
+        //function display album
+        document.getElementById('btn').addEventListener('click', function(){
+            const div = document.getElementById('container-album');
+
+            if(div.style.display === 'none'){
+                div.style.display = 'block';
+                div.style.display ='flex';
+                div.style.justifyContent = 'center';
+            }else{
+                div.style.display = 'none';
+            }
+        })
+    
+        //function to disorder the album
+        document.querySelectorAll('.album').forEach(album => {
+            const tiltX = (Math.random() - 0.5) * 10;  // Inclinación en grados (-5 a 5 grados en X)
+            const tiltY = (Math.random() - 0.5) * 10;  // Inclinación en grados (-5 a 5 grados en Y)
+            const tiltZ = (Math.random() - 0.5) * 10;  // Inclinación en grados (-5 a 5 grados en Z)
+            const translateX = (Math.random() - 0.5) * 20;  // Desplazamiento en píxeles (-10 a 10 píxeles en X)
+            const translateY = (Math.random() - 0.5) * 20;  // Desplazamiento en píxeles (-10 a 10 píxeles en Y)
+            
+            album.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) rotateZ(${tiltZ}deg) translateX(${translateX}px) translateY(${translateY}px)`;
+        });
+   
+        //function  to show the album in a modal
+        function mostrarImageModal() {
+            // Obtener elementos
+            const modal = document.getElementById("myModal");
+            const modalImg = document.getElementById("img01");
+            const albums = document.querySelectorAll(".album img");
+            const closeModal = document.querySelector(".close");
+        
+            // Agregar evento de doble clic a cada imagen del álbum
+            albums.forEach(function(album) {
+                album.addEventListener('dblclick', function () {
+                    modal.style.display = "block";
+                
+                    modalImg.src = this.src.replace('q=60&w=3000', 'q=80&w=4000'); // Cambia la calidad y el ancho
+                });
+            });
+        
+            // Al hacer clic en el botón de cerrar, ocultar el modal
+            closeModal.addEventListener('click', function () {
+                modal.style.display = "none";
+            });
+        
+            // Al hacer clic fuera de la imagen, también se cierra el modal
+            window.addEventListener('click', function (event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            });
+        }
+        mostrarImageModal();
+    </script>
+  </body>
+</html>
